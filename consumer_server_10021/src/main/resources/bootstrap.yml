@@ -1,0 +1,31 @@
+
+spring:
+  application:
+    name: consumer-server10021
+  profiles:
+    active: 10021
+  cloud:
+    config:
+      discovery:
+        service-id: server-config
+        enabled: true
+  thymeleaf:
+    cache: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://39.107.15.222:8761/eureka
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+ribbon:
+  ReadTimeout: 600000
+  ConnectTimeout: 600000
+server:
+  port: 10021
+myLilv: 14.4%
+
+

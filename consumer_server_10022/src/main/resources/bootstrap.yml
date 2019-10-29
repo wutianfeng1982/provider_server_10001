@@ -1,0 +1,71 @@
+
+#spring:
+
+ # profiles:
+ #   active: 10022
+#  cloud:
+#      config:
+#        discovery:
+ #         service-id: server-config
+#         enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://39.107.15.222:8761/eureka
+server:
+  port: 10022
+spring:
+  application:
+    name: consumer-server10022
+  thymeleaf:
+      cache: false # 开发时关闭缓存,不然没法看到实时页面
+      mode: LEGACYHTML5 # 用非严格的 HTML
+      encoding: UTF-8
+      servlet:
+        content-type: text/html
+logging:
+  level:
+    com.finance.www.service.IndexService: debug
+
+#security:
+#  oauth2:
+#    client:
+#      client-id: dubitian
+#      client-secret: dubitian
+#      access-token-uri: http://10.12.159.124:8050/oauth/token
+#      user-authorization-uri: http://10.12.159.124:8050/oauth/authorize
+#      pre-established-redirect-uri: http://10.12.159.120:10022/home
+#    resource:
+#      token-info-uri: http://10.12.159.124:8050/oauth/check_token
+security:
+  oauth2:
+    client:
+      #      APP ID
+      client-id: dubitian
+      #      相当与 APP KEY
+      client-secret: dubitian
+      #      换取账户令牌地址
+      access-token-uri: http://10.12.159.124:8050/oauth/token
+      #      授权地址
+      user-authorization-uri: http://10.12.159.124:8050/oauth/authorize
+      #      重定向的页面必须和认证中心的一致
+      pre-established-redirect-uri: http://10.12.159.120:10022/login
+    resource:
+      #      验证令牌信息的地址
+      token-info-uri: http://10.12.159.124:8050/oauth/check_token
+
+feign:
+  client:
+    config:
+      rpc-user: # feign name
+        requestInterceptors:
+          - com.finance.www.config.OAuth2FeignRequestInterceptor
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+ribbon:
+  ReadTimeout: 600000
+  ConnectTimeout: 600000
